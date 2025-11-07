@@ -12,26 +12,51 @@ var expressions := {
 	"sad": preload ("res://assets/emotion_sad.png"),
 }
 
+var bodies := {
+	"sophia": preload ("res://assets/sophia.png"),
+	"pink": preload ("res://assets/pink.png")
+}
+
 var dialogue_items: Array[Dictionary] = [
 	{
 		"expression": expressions["regular"],
-		"text": "Hello, my name is Jeff",
-	},
-	{
-		"expression": expressions["sad"],
-		"text": "I'm a student at Balboa High School",
-	},
-	{
-		"expression": expressions["happy"],
-		"text": "My favorite food is Tacos!",
+		"text": "Hello, my name is Jeff!",
+		"character": bodies["sophia"],
 	},
 	{
 		"expression": expressions["regular"],
-		"text": "Do you want to be friends?",
+		"text": "Hi my name is William",
+		"character": bodies["pink"],
 	},
 	{
 		"expression": expressions["happy"],
-		"text": "Pleaseeeeeeeee",
+		"text": "Can I get your number shorty?",
+		"character": bodies["sophia"],
+	},
+	{
+		"expression": expressions["sad"],
+		"text": "uhhhhhhhh....",
+		"character": bodies["pink"],
+	},
+	{
+		"expression": expressions["regular"],
+		"text": "I guess",
+		"character": bodies["pink"],
+	},
+	{
+		"expression": expressions["happy"],
+		"text": "But I'm not on my phone much",
+		"character": bodies["pink"],
+	},
+	{
+		"expression": expressions["happy"],
+		"text": "Thats fine",
+		"character": bodies["sophia"],
+	},
+	{
+		"expression": expressions["happy"],
+		"text": "I'll call you tonight ;)",
+		"character": bodies["sophia"],
 	},
 ]
 var current_item_index := 0
@@ -47,19 +72,20 @@ func show_text() -> void:
 	var current_item := dialogue_items[current_item_index]
 	rich_text_label.text = current_item["text"]
 	expression.texture = current_item["expression"]
+	body.texture = current_item["character"]
+
+
 	rich_text_label.visible_ratio = 0.0
 	var tween := create_tween()
-	var text_appearing_duration := 1.0
+	var text_appearing_duration: float = current_item["text"].length() / 30.0
 	tween.tween_property(rich_text_label, "visible_ratio", 1.0, text_appearing_duration)
 
 	var sound_max_offset := audio_stream_player.stream.get_length() - text_appearing_duration
 	var sound_start_position := randf() * sound_max_offset
 	audio_stream_player.play(sound_start_position)
 	tween.finished.connect(audio_stream_player.stop)
-	
+
 	slide_in()
-
-
 
 func advance() -> void:
 	current_item_index += 1
@@ -67,13 +93,12 @@ func advance() -> void:
 		get_tree().quit()
 	else:
 		show_text()
-	
+
 
 func slide_in() -> void:
-	var tween := create_tween()
-	tween.set_trans(Tween.TRANS_QUART)
-	tween.set_ease(Tween.EASE_OUT)
-	body.position.x = 200.0
-	tween.tween_property(body, "position:x", 0.0, 1.0)
-	body.modulate.a = 0.0
-	tween.parallel().tween_property(body, "modulate:a", 1.0, 0.2)
+	var slide_tween := create_tween()
+	slide_tween.set_ease(Tween.EASE_OUT)
+	body.position.x = 200
+	slide_tween.tween_property(body, "position:x", 0, 0.4)
+	body.modulate.a = 0
+	slide_tween.parallel().tween_property(body, "modulate:a", 1, 0.2)
