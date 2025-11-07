@@ -20,12 +20,12 @@ var bodies := {
 var dialogue_items: Array[Dictionary] = [
 	{
 		"expression": expressions["regular"],
-		"text": "Hello, my name is Jeff!",
+		"text": "Hello, my name is [wave]Jeff!",
 		"character": bodies["sophia"],
 	},
 	{
 		"expression": expressions["regular"],
-		"text": "Hi my name is William",
+		"text": "Hi my name is [wave]William",
 		"character": bodies["pink"],
 	},
 	{
@@ -35,12 +35,12 @@ var dialogue_items: Array[Dictionary] = [
 	},
 	{
 		"expression": expressions["sad"],
-		"text": "uhhhhhhhh....",
+		"text": "[tornado freq=1.5]uhhhhhhhh....",
 		"character": bodies["pink"],
 	},
 	{
 		"expression": expressions["regular"],
-		"text": "I guess",
+		"text": "[shake]I guess",
 		"character": bodies["pink"],
 	},
 	{
@@ -55,7 +55,7 @@ var dialogue_items: Array[Dictionary] = [
 	},
 	{
 		"expression": expressions["happy"],
-		"text": "I'll call you tonight ;)",
+		"text": "[rainbow val=0.8]I'll call you tonight ;)",
 		"character": bodies["sophia"],
 	},
 ]
